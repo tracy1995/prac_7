@@ -18,21 +18,22 @@ class Guitar:
     def __lt__(self, other):
         return self.year < other.year
 
-def load_guitars():
-    guitars = []
-    try:
-        with open('guitars.csv', 'r') as file:
-            reader = csv.reader(file)
-            for line in reader:
-                name, year, cost = line
-                guitars.append(Guitar(name, int(year), float(cost)))
-    except FileNotFoundError:
-        print("No previous data found. Starting with an empty list.")
-    return guitars
+    @staticmethod
+    def load_guitars():
+        guitars = []
+        try:
+            with open('guitars.csv', 'r') as file:
+                reader = csv.reader(file)
+                for line in reader:
+                    name, year, cost = line
+                    guitars.append(Guitar(name, int(year), float(cost)))
+        except FileNotFoundError:
+            print("No previous data found. Starting with an empty list.")
+        return guitars
 
-def save_guitars(guitars):
-    with open('guitars.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        for guitar in guitars:
-            writer.writerow([guitar.name, guitar.year, guitar.cost])
-
+    @staticmethod
+    def save_guitars(guitars):
+        with open('guitars.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            for guitar in guitars:
+                writer.writerow([guitar.name, guitar.year, guitar.cost])
